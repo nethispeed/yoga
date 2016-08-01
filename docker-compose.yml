@@ -1,0 +1,43 @@
+version: '2'
+services:
+
+  kapiweb:
+    image: registry.kapook.com/nethispeed/testapi/web_kapi
+    networks:
+      kpnetwork:
+        ipv4_address: 192.168.1.55
+    ports:
+      - "80:80"
+
+  mysql13:
+    image: registry.kapook.com/nethispeed/testapi/serv_mysqld
+    networks:
+      kpnetwork:
+        ipv4_address: 192.168.1.146
+
+  redis77:
+    image: registry.kapook.com/nethispeed/testapi/serv_redis
+    networks:
+      kpnetwork:
+        ipv4_address: 192.168.1.115
+
+  mongo167:
+    image: registry.kapook.com/nethispeed/testapi/serv_mongod
+#    command: mongorestore /data/dump/
+    networks:
+      kpnetwork:
+        ipv4_address: 192.168.1.101
+
+  couchbase121:
+    image: registry.kapook.com/nethispeed/testapi/serv_couchbase 
+    networks:
+      kpnetwork:
+        ipv4_address: 192.168.1.121
+
+networks:
+  kpnetwork:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.1.0/24
+
