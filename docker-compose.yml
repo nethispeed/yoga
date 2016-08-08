@@ -2,12 +2,18 @@ version: '2'
 services:
 
   kapiweb:
-    image: registry.kapook.com/nethispeed/testapi/web_kapi
+    image: registry.kapook.com/nethispeed/testapi/proxy_kapi
+    networks:
+      kpnetwork:
+        ipv4_address: 192.168.1.34
+    ports:
+      - "80:80"
+
+  kapifpm:
+    image: registry.kapook.com/nethispeed/testapi/fpm_kapi
     networks:
       kpnetwork:
         ipv4_address: 192.168.1.55
-    ports:
-      - "80:80"
 
   mysql13:
     image: registry.kapook.com/nethispeed/testapi/serv_mysqld
@@ -19,14 +25,13 @@ services:
     image: registry.kapook.com/nethispeed/testapi/serv_redis
     networks:
       kpnetwork:
-        ipv4_address: 192.168.1.115
+        ipv4_address: 192.168.1.77
 
-  mongo167:
-    image: registry.kapook.com/nethispeed/testapi/serv_mongod
-#    command: mongorestore /data/dump/
-    networks:
-      kpnetwork:
-        ipv4_address: 192.168.1.101
+#  mongo167:
+#    image: registry.kapook.com/nethispeed/testapi/serv_mongod
+#    networks:
+#      kpnetwork:
+#        ipv4_address: 192.168.1.101
 
   couchbase121:
     image: registry.kapook.com/nethispeed/testapi/serv_couchbase 
